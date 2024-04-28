@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h1 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  input[type="number"], select {
+    width: 60px;
+    padding: 10px;
+    margin: 0 5px;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  select {
+    width: 150px;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  button {
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Age Calculator</h1>
+  <div>
+    <label for="dob">Date of Birth:</label>
+    <input type="number" id="day" placeholder="DD" min="1" max="31">
+    <select id="month">
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+    <input type="number" id="year" placeholder="YYYY" min="1900" max="2100">
+  </div>
+  <br>
+  <button onclick="calculateAge()">Calculate Age</button>
+  <div id="result"></div>
+</div>
+
+<script>
+function calculateAge() {
+  var day = parseInt(document.getElementById('day').value);
+  var month = parseInt(document.getElementById('month').value);
+  var year = parseInt(document.getElementById('year').value);
+  
+  // Validate year to be exactly 4 digits
+  if (isNaN(year) || year < 1000 || year > 9999) {
+    alert("Please enter a valid 4-digit year.");
+    return;
+  }
+  
+  // Validate month to be between 1 and 12
+  if (isNaN(month) || month < 1 || month > 12) {
+    alert("Please select a valid month.");
+    return;
+  }
+  
+  // Validate day to be between 1 and 31 (for simplicity)
+  if (isNaN(day) || day < 1 || day > 31) {
+    alert("Please enter a valid day of the month.");
+    return;
+  }
+  
+  var today = new Date();
+  var birthDate = new Date(year, month - 1, day);
+  
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  
+  document.getElementById('result').innerHTML = "You are " + age + " years old.";
+}
+</script>
+
+</body>
+</html>
